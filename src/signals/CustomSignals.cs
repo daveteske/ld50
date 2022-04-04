@@ -10,8 +10,8 @@ namespace ld50game.signals
     public class CustomSignals : Node
     {
         [Signal]
-        public delegate void StartGame();
+        public delegate void GameOver();
         [Signal]
-        public delegate void TrayCompleted(int points);
+        public delegate void SetDangerLevel(int level);
     }
 }

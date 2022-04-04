@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ShieldsV2.cs" type="Script" id=1]
+[ext_resource path="res://Shieldv2.tscn" type="PackedScene" id=3]
+
+[node name="ShieldsV2" type="KinematicBody2D"]
+position = Vector2( 599, 358 )
+script = ExtResource( 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="RotationSprite" type="Sprite" parent="."]
+
+[node name="Shieldv21" parent="." instance=ExtResource( 3 )]
+
+[node name="Shieldv22" parent="." instance=ExtResource( 3 )]
+rotation = 1.5708
+
+[node name="Shieldv23" parent="." instance=ExtResource( 3 )]
+rotation = 3.14159
+
+[node name="Shieldv24" parent="." instance=ExtResource( 3 )]
+rotation = 4.71239

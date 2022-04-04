@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Level01.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/CrazyIdea.cs" type="Script" id=2]
+[ext_resource path="res://scenes/DangerZone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ShieldsV2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assests/startgame.wav" type="AudioStream" id=5]
+[ext_resource path="res://assests/gameover.wav" type="AudioStream" id=6]
+[ext_resource path="res://assests/danger1.wav" type="AudioStream" id=7]
+
+[node name="CrazyIdea" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ParticleSpawnTimer" type="Timer" parent="."]
+
+[node name="DangerZone" parent="." instance=ExtResource( 3 )]
+
+[node name="Level01" parent="." instance=ExtResource( 1 )]
+position = Vector2( 600, 356 )
+
+[node name="ShieldsV2" parent="." instance=ExtResource( 4 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Label0" type="Label" parent="HUD"]
+margin_left = 45.0
+margin_top = 31.0
+margin_right = 80.0
+margin_bottom = 45.0
+text = "Score"
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+margin_left = 45.0
+margin_top = 54.0
+margin_right = 85.0
+margin_bottom = 68.0
+text = "0"
+
+[node name="StartButton" type="Button" parent="HUD"]
+margin_left = 437.0
+margin_top = 310.0
+margin_right = 770.0
+margin_bottom = 398.0
+text = "New Game"
+
+[node name="NewGameSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="DanglerLevelSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="GameOverSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="timeout" from="ParticleSpawnTimer" to="." method="OnParticleSpawnTimerTimeout"]
+[connection signal="pressed" from="HUD/StartButton" to="." method="OnStartButtonPressed"]

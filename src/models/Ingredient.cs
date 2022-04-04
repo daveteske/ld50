@@ -10,8 +10,7 @@ namespace ld50game.models
     {
         public string Name { get; set; }
         //public string Description { get; set; }
-        //public int Type { get; set; } // fixed,flexible
+        public int Type { get; set; }
         public string Image { get; set; }
-
     }
 }

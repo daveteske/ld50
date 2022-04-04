@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ld50game.models
 {
@@ -26,7 +25,7 @@ namespace ld50game.models
             if (next.Any(i => i.Name == ingredient.Name))
             {
                 // mark completed 
-                RecipeSteps.SingleOrDefault(r => r.Ingredient.Name == ingredient.Name).Completed = true;
+                RecipeSteps.FirstOrDefault(r => r.Ingredient.Name == ingredient.Name && !r.Completed).Completed = true;
                 GD.Print("TryAStep Success: ", ingredient.Name);
                 return true;
             }
