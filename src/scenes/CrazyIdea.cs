@@ -33,14 +33,12 @@ public class CrazyIdea : Node2D
         AtomKinScene = (PackedScene)GD.Load("res://scenes/AtomKin.tscn");
         ParticleSpawnTimer = GetNode<Timer>("ParticleSpawnTimer");
 
-        //StartNewGame();
     }
 
     public void OnSetDangerLevel(int level)
     {
         GetNode<AudioStreamPlayer>("DanglerLevelSfx").Play();
 
-        GD.Print($"Danger Level: {level}");
     }
 
     public void OnGameOver()
@@ -49,7 +47,8 @@ public class CrazyIdea : Node2D
         GetTree().CallGroup("atoms", nameof(AtomKin.Stop));
         GetNode<AudioStreamPlayer>("GameOverSfx").Play();
         GetNode<Button>("HUD/StartButton").Visible = true;
-
+        GetNode<AudioStreamPlayer>("BackgroundMusic").Stop();
+        GetNode<ShieldsV2>("ShieldsV2").IsActive = false;
     }
 
     public void OnParticleSpawnTimerTimeout()
@@ -64,6 +63,7 @@ public class CrazyIdea : Node2D
 
         atom.Position = spawnLoc;
         atom.RotationDegrees = rng.RandfRange(0,359);
+        //atom.Modulate = new Color(1.5f, 1.5f, 1.5f);
         AddChild(atom);
         GetNode<Label>("HUD/ScoreLabel").Text = ParticalCount.ToString();
 
@@ -76,10 +76,34 @@ public class CrazyIdea : Node2D
     }
     public void StartNewGame()
     {
-        GetNode<ShieldsV2>("ShieldsV2").IsActive = true;
-        ParticleSpawnTimer.WaitTime = 1;
+        GameReset();
+
         ParticleSpawnTimer.Start();
         GetNode<AudioStreamPlayer>("NewGameSfx").Play();
+        GetNode<AudioStreamPlayer>("BackgroundMusic").Play();
+
+    }
+
+    public void GameReset()
+    {
+        // Self
+        GetTree().CallGroup("atoms", nameof(AtomKin.Remove));
+        ParticalCount = 0;
+
+        // Timer
+        ParticleSpawnTimer.WaitTime = 1;
+        //DangerZone
+        //Level01
+        // Shields
+        var ShieldsV2Node = GetNode<ShieldsV2>("ShieldsV2");
+        ShieldsV2Node.IsActive = true;
+        ShieldsV2Node.ResetShields();
+
+        // Hud
+        
+        // Audio
+        GetNode<AudioStreamPlayer>("BackgroundMusic").VolumeDb = GD.Linear2Db(.05f);
+
     }
 
 }

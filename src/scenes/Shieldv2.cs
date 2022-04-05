@@ -25,7 +25,15 @@ public class Shieldv2 : Node2D
         }
     }
 
-    private void OnShieldBodyEntered(Node body)
+    public void Reset()
+    {
+        hits = 0;
+        staticColliderNode.Scale -= new Vector2(0f, 1); 
+        areaColliderNode.Scale -= new Vector2(0f, 1); 
+        (GetNode<Sprite>("Sprite")).Scale -= new Vector2(0f, 1);    
+    }
+
+    public void OnShieldBodyEntered(Node body)
     {
         if (body.IsInGroup("atoms"))
         {
@@ -35,7 +43,7 @@ public class Shieldv2 : Node2D
             
             areaColliderNode.Scale -= new Vector2(0f, DamageModifier); 
 
-            (GetNode<Sprite>("Sprite")).Scale -= new Vector2(0f, DamageModifier*2);
+            (GetNode<Sprite>("Sprite")).Scale -= new Vector2(0f, DamageModifier);
 
             // var sfxNode = (GetNode<AudioStreamPlayer>("ShieldHitSfx"));
             // sfxNode.Play();

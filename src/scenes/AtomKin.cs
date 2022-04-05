@@ -35,4 +35,8 @@ public class AtomKin : KinematicBody2D
     {
         IsActive = true;
     }
+    public void Remove()
+    {
+        this.QueueFree();
+    }
 }
