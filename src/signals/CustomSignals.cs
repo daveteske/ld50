@@ -11,7 +11,11 @@ namespace ld50game.signals
     {
         [Signal]
         public delegate void GameOver();
+
         [Signal]
         public delegate void SetDangerLevel(int level);
+
+        [Signal]
+        public delegate void PowerUpToggle(bool isActive);
     }
 }
